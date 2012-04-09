@@ -35,7 +35,6 @@ var results = {},
 			
 		},
 		testDone: function(data){
-			console.log(data)
 			var test = results[currentModule].tests[data.name];
 			test.failed = data.failed;
 			test.total = data.total;
@@ -69,17 +68,20 @@ var results = {},
 				nbrPassed = 0,
 				moduleName,
 				module,
-				testName, 
+				testName,
+				failed, 
 				test;
 			
 			for(moduleName in results){
 				module = results[moduleName];
 				for(testName in module.tests){
-					test = module.tests;
-					console.log(test)
-					if(test.failed){
+					test = module.tests[testName];
+					if(test.failed > 0){
 						nbrFailed ++;
-						failed.push(testName);
+						failed.push({
+							module: moduleName,
+							test: testName
+						});
 					} else {
 						nbrPassed ++;	
 					}
@@ -90,12 +92,12 @@ var results = {},
 			if(nbrFailed > 0){
 				console.log('FAILURES')
 				for(var i=0; i<failed.length; i++){
-					console.log('  '+failed[i]);
+					failed = failed[i];
+					console.log('  '+(i+1)+') module: '+failed.module+', test: '+failed.test);
 				}
 			} else {
 				console.log('PASSED')
 			}
-			console.log(results);
 			console.log(nbrPassed+' passed, '+nbrFailed+' failed')
 		}
 	}
