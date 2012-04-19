@@ -1,0 +1,1 @@
+steal('funcunit/qunit/publisher/websocket.js');

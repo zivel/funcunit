@@ -1682,3 +1682,5 @@ if(!id("qunit-test-area")){
 }
 })
 .then('funcunit/browser/events.js')
+.then('funcunit/qunit/publisher')
+
